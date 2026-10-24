@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Prepare images for the web. Resize, compare and download a batch of PNG, JPEG or WebP images, entirely in your browser.">
+    <meta name="color-scheme" content="light">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'self'">
+    <title>ImagePrep — Good images. Less weight.</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./src/style.css">
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body>
+    <a href="#workspace" class="skip-link">Skip to image workspace</a>
+    <header class="app-header">
+      <a class="brand" href="./" aria-label="ImagePrep home"><span class="brand-mark" aria-hidden="true"></span>ImagePrep<span class="brand-dot" aria-hidden="true">.</span></a>
+      <span class="local-label"><span aria-hidden="true"></span>On your device. In your control.</span>
+    </header>
+
+    <main class="app-main">
+      <div class="intro">
+        <div><p class="eyebrow">A little less weight.</p><h1>Good images.<br class="mobile-break"> Less weight.</h1></div>
+        <p>Resize a batch. Compare the details.<br>Save new copies. Keep your originals.</p>
+      </div>
+
+      <section id="workspace" class="workspace" aria-label="Image preparation workspace" tabindex="-1">
+        <div id="drop" class="drop-area">
+          <span class="drop-mark" aria-hidden="true">+</span>
+          <div class="drop-copy"><h2>Bring your images.</h2><p>Drop still PNG, JPEG or WebP files here.</p><p id="file-help" class="limits">Up to 20 files · 100 MiB per batch · 20 MiB and 24 megapixels per image</p></div>
+          <div class="file-picker"><label class="visually-hidden" for="file">Choose images</label><input id="file" type="file" multiple accept="image/png,image/jpeg,image/webp" aria-describedby="file-help"></div>
+        </div>
+
+        <noscript><p class="error">ImagePrep needs JavaScript to prepare images on your device. No images are uploaded.</p></noscript>
+        <div class="status-strip"><p id="status" role="status" aria-live="polite">Choose images to start. Your original files stay unchanged.</p><span class="local-badge">No uploads. No accounts.</span></div>
+        <p id="error" class="error" role="alert" hidden></p>
+
+        <div class="workspace-grid">
+          <aside class="sidebar" aria-label="Images and output settings">
+            <section class="batch-panel" aria-labelledby="batch-title">
+              <div class="section-heading"><h2 id="batch-title">Your images <span id="count" class="count">0</span></h2><button id="clear" class="text-button" type="button" disabled>Clear all</button></div>
+              <div id="empty" class="queue-empty"><span class="empty-stack" aria-hidden="true"></span><p>A small batch.<br>A lighter finish.</p><span>Your images will appear here.</span></div>
+              <ul id="queue" class="queue" aria-label="Image queue"></ul>
+            </section>
+
+            <form id="settings" class="settings-panel">
+              <div class="section-heading"><h2>Prepare your copies</h2><span class="section-number" aria-hidden="true">01</span></div>
+              <fieldset id="fields" disabled>
+                <legend class="visually-hidden">Settings for every image in this batch</legend>
+                <div class="field"><label for="preset">Starting point</label><select id="preset"><option value="custom" selected>Custom settings</option><option value="web1600">Web images · 1600 px</option><option value="article1200">Article images · 1200 px</option><option value="thumbnail480">Thumbnails · 480 px</option></select></div>
+                <div class="field"><label for="size">Longest edge <span>pixels</span></label><input id="size" type="number" min="1" max="12000" step="1" value="1600" required aria-describedby="size-help"><p id="size-help" class="help">Keeps proportions. Never enlarges small images.</p></div>
+                <div class="field"><label for="format">File format</label><select id="format" aria-describedby="format-help"><option value="image/webp">WebP · compact images</option><option value="image/jpeg">JPEG · photographs</option><option value="image/png">PNG · lossless output</option></select><p id="format-help" class="help">WebP keeps transparent areas. Check fine text and edges before saving.</p></div>
+                <div class="field quality-field"><label for="quality">Quality <output id="quality-value" for="quality">82%</output></label><input id="quality" type="range" min="10" max="100" step="1" value="82" aria-describedby="quality-help"><p id="quality-help" class="help">Higher quality usually makes a larger file.</p></div>
+                <button id="run" class="primary-button" type="submit">Prepare images <span aria-hidden="true">→</span></button>
+              </fieldset>
+              <button id="cancel" class="text-button cancel-button" type="button" disabled>Stop queue</button>
+              <p class="settings-note">Settings apply to the whole batch. Stop keeps the queue and finished copies; Prepare remaining resumes here. Nothing is saved after a reload.</p>
+            </form>
+          </aside>
+
+          <section class="preview-panel" aria-labelledby="preview-title">
+            <div class="preview-heading"><div><p class="eyebrow">02 / Take a closer look</p><h2 id="preview-title">The details matter.</h2><p id="selected-name" class="selected-name">Select an image to compare.</p></div><div class="zoom-control"><label for="zoom">Preview</label><select id="zoom"><option value="fit">Fit to frame</option><option value="actual">Actual size · 100%</option></select></div></div>
+
+            <div class="comparison">
+              <figure class="image-panel"><figcaption><span>Original</span><span class="image-label">Untouched</span></figcaption><div class="image-frame" tabindex="0" role="region" aria-label="Original image preview"><img id="original" alt="Selected original image" hidden><div id="original-placeholder" class="image-placeholder"><span class="placeholder-icon" aria-hidden="true"></span><span>Your original image</span><small>Start with a photo or screenshot.</small></div></div><p id="original-meta" class="image-meta">Dimensions and size will appear here.</p></figure>
+              <figure class="image-panel"><figcaption><span>Prepared copy</span><span class="image-label prepared-label">New copy</span></figcaption><div class="image-frame" tabindex="0" role="region" aria-label="Prepared image preview"><img id="result" alt="Prepared image preview" hidden><div id="result-placeholder" class="image-placeholder"><span class="placeholder-icon prepared-icon" aria-hidden="true"></span><span>Your prepared copy</span><small>Choose settings, then prepare.</small></div></div><p id="result-meta" class="image-meta">Awaiting a prepared copy.</p></figure>
+            </div>
+
+            <div class="single-export"><div><p id="savings" class="savings">A good image is worth keeping.</p><p id="result-note" class="help">Compare the result before downloading your copy.</p></div><a id="download" class="secondary-button" hidden>Download copy <span aria-hidden="true">↓</span></a></div>
+
+            <div class="batch-export"><div><p class="eyebrow">03 / Ready to go</p><h3>One batch. One download.</h3><p>Collect ready copies in a ZIP. Images with errors are left out.</p></div><button id="download-all" class="primary-button" type="button" disabled>Download ZIP <span aria-hidden="true">↓</span></button></div>
+
+            <details class="how-it-works"><summary>A few useful things to know <span aria-hidden="true">+</span></summary><div class="details-body"><p>Choose images, set a longest edge and format, then select <strong>Prepare images</strong>. Click an image in your list to compare its original and prepared copy. Use <strong>Actual size</strong> to check fine details, scrolling within each frame where needed. At 100%, one image pixel uses one CSS pixel; browser zoom and display scaling still apply.</p><p>Downloads are new still images. Embedded metadata is not copied, and colour may vary. JPEG fills transparent areas with white. PNG keeps transparency and does not use a quality setting. A prepared copy can sometimes be larger than its original.</p><p>Stopping lets the current decoder finish, discards its unfinished result, then waits for you to resume. Your files stay in this browser. There are no uploads, accounts or saved image history. Download the copies you want to keep before clearing the batch or leaving the page. Prepared files are limited to 100 MiB in total; ZIP headers count towards its 100 MiB limit. If a full batch will not fit, remove a copy or download images individually.</p></div></details>
+          </section>
+        </div>
+      </section>
+      <footer class="app-footer"><p>ImagePrep<span aria-hidden="true">.</span> <span>Version 0.2 · Standalone preview.</span></p><p>Thoughtful images. Originals intact.</p></footer>
+    </main>
+  </body>
+</html>

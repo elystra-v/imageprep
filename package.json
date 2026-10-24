@@ -1,0 +1,13 @@
+{
+  "name": "imageprep",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "A standalone, on-device image preparation workspace",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "build": "python3 scripts/build.py",
+    "start": "python3 scripts/serve.py"
+  },
+  "engines": { "node": ">=22" }
+}
