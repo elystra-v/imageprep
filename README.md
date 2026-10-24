@@ -2,11 +2,20 @@
 
 ImagePrep is a standalone, on-device image preparation workspace. Bring a batch of still images, resize and compare them, then download new copies. The originals are never written to.
 
+Licensed under [MIT](LICENSE). No image uploads, accounts or runtime package dependencies.
+
 Version **0.2.1** is a local browser application with its own source repository. It has no dependency on the Elystra-V website, Astro, a cloud service, or a native desktop wrapper. The small local server serves static files only; image data stays in the browser. The same boundary applies when hosted: the host delivers the app files, while selected images are decoded, resized and encoded on the device. Hosting may involve ordinary access logs; this app contains no analytics or image-upload endpoint.
 
 ## Run locally
 
-Python 3 is the only prerequisite for the app preview:
+Download the repository with GitHub's **Code → Download ZIP**, then extract it and open a terminal in the extracted directory. Alternatively, clone it:
+
+```sh
+git clone https://github.com/elystra-v/imageprep.git
+cd imageprep
+```
+
+Python 3 is the only prerequisite for serving the app. Use a current browser with JavaScript enabled:
 
 ```sh
 python3 scripts/build.py
@@ -68,6 +77,8 @@ ImagePrep began as a small single-image demo on the Elystra-V website. This repo
 
 The stopping point is a complete batch prepare → compare → download workflow. Native packaging, offline installation, per-image crop/editing, extra formats and a hosted public release are future work. The current preview has a noindex guard; review that separately before a public deployment.
 
-## Publication status
+## License
 
-The source repository is currently private. A public release and a reuse license have not yet been selected. There is no LICENSE file; do not describe this version as open source. The package's `private: true` prevents accidental npm publishing and does not control GitHub visibility.
+Copyright (c) 2026 Wei Xian. ImagePrep is available under the [MIT License](LICENSE), which permits use, modification and redistribution, including commercial use, while preserving the copyright and license notice. The software is provided without warranty. Builds include the license in `dist/LICENSE`; keep it with copies you distribute.
+
+The package's `private: true` prevents accidental npm publishing and does not control GitHub visibility. Source availability does not deploy a hosted service; local preview and static hosting remain separate choices. The Elystra-V website has its own separate repository and publication status.

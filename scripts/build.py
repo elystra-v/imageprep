@@ -4,7 +4,7 @@ import shutil
 
 root = Path(__file__).resolve().parent.parent
 dest = root / 'dist'
-runtime = ('index.html', 'icon.svg', 'src/app.js', 'src/archive.js',
+runtime = ('LICENSE', 'index.html', 'icon.svg', 'src/app.js', 'src/archive.js',
            'src/batch.js', 'src/core.js', 'src/processor.js', 'src/style.css')
 # Export only app files, and never retain stale files from an older build.
 for name in runtime:

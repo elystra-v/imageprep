@@ -1,6 +1,7 @@
 {
   "name": "imageprep",
   "version": "0.2.1",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "description": "A standalone, on-device image preparation workspace",
