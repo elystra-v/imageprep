@@ -2,7 +2,7 @@
 
 ImagePrep is a standalone, on-device image preparation workspace. Bring a batch of still images, resize and compare them, then download new copies. The originals are never written to.
 
-Version **0.2.0** is a local browser application with its own source repository. It has no dependency on the Elystra-V website, Astro, a cloud service, or a native desktop wrapper. The small local server serves static files only; image data stays in the browser.
+Version **0.2.1** is a local browser application with its own source repository. It has no dependency on the Elystra-V website, Astro, a cloud service, or a native desktop wrapper. The small local server serves static files only; image data stays in the browser. The same boundary applies when hosted: the host delivers the app files, while selected images are decoded, resized and encoded on the device. Hosting may involve ordinary access logs; this app contains no analytics or image-upload endpoint.
 
 ## Run locally
 
@@ -14,6 +14,10 @@ python3 scripts/serve.py
 ```
 
 Open `http://127.0.0.1:4331/`. Use `--port 4332` if that port is occupied. Stop the server with Ctrl+C. To share a build, copy the contents of `dist/` to a static host; publication and a public address are separate decisions. JavaScript modules require HTTP; do not open index.html through a file URL.
+
+## What it is for
+
+Prepare photographs for web pages, screenshots for articles and documentation, or a batch of lighter copies for sharing. Compare dimensions, file size and fine details before downloading. This is a resize-and-convert tool, not a photo editor: it does not retouch, sharpen, restore or upscale images. Smaller files are not guaranteed.
 
 ## Current workflow
 
@@ -60,6 +64,10 @@ The first standalone pass has 51 automated cases across the core, batch lifecycl
 
 ## Relationship to Elystra-V
 
-ImagePrep began as the v0.1 single-image demo in `elystra-v/elystra-v-website` at commit `85c39ae`. This repository is the source of truth for the standalone product from v0.2 onward. The website's existing demo is a retained v0.1 snapshot; it is not automatically updated by edits here. A later website integration should import an explicitly versioned release or link to the standalone deployment, rather than maintain two evolving implementations. No website, DNS or deployment settings were changed for this extraction.
+ImagePrep began as a small single-image demo on the Elystra-V website. This repository is now the source of truth for the independent tool. The website introduces it at `/tools/imageprep/` and imports a versioned, byte-identical runtime at `/apps/imageprep/`. Its import manifest records the source revision and file checksums; the website does not maintain a second implementation. This app can run on its own without the website.
 
-The stopping point is a complete batch prepare → compare → download workflow. Native packaging, offline installation, per-image crop/editing, extra formats and a hosted public release are future work.
+The stopping point is a complete batch prepare → compare → download workflow. Native packaging, offline installation, per-image crop/editing, extra formats and a hosted public release are future work. The current preview has a noindex guard; review that separately before a public deployment.
+
+## Publication status
+
+The source repository is currently private. A public release and a reuse license have not yet been selected. There is no LICENSE file; do not describe this version as open source. The package's `private: true` prevents accidental npm publishing and does not control GitHub visibility.

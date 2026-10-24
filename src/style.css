@@ -51,6 +51,8 @@ a { color: inherit; }
 .intro h1 { font-weight: 500; font-size: clamp(32px, 3.4vw, 49px); line-height: 1.14; letter-spacing: -1.9px; }
 .intro > p { color: #c3c7cd; font-size: 13px; line-height: 1.8; padding-bottom: 1px; }
 .mobile-break { display: none; }
+.privacy-note { margin: -8px 0 24px; max-width: 100ch; color: #c3c7cd; font-size: 12px; line-height: 1.8; }
+.privacy-note strong { color: var(--paper); font-weight: 600; }
 .workspace { background: var(--paper); border: 1px solid #ffffff18; border-radius: 8px; padding: 24px; box-shadow: 0 12px 50px #11182020; }
 .workspace:focus { outline: none; }
 .drop-area { display: flex; align-items: center; gap: 21px; padding: 24px; border: 1px dashed #9d9da4; background: var(--surface); border-radius: 5px; }
